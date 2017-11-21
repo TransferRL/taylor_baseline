@@ -11,7 +11,6 @@ import os
 import lib.qlearning as ql
 import pickle
 
-#### TODO: do batch norm for the neural nets
 
 # Parameters
 learning_rate = 0.1

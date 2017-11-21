@@ -63,7 +63,20 @@ class ThreeDCartPoleEnv(gym.Env):
         assert self.action_space.contains(action), "%r (%s) invalid"%(action, type(action))
         state = self.state
         x, x_dot, x_theta, x_theta_dot, y, y_dot, y_theta, y_theta_dot = state
-        force_x = self.force_mag if action==1 else -self.force_mag
+
+        force_x = 0
+        force_y = 0
+
+        if action==0:
+            force_x = -self.force_mag
+        elif action==1:
+            force_x = self.force_mag
+        elif action==2:
+            force_y = -self.force_mag
+        elif action==3:
+            force_y = self.force_mag
+
+        # update x direction
         x_costheta = math.cos(x_theta)
         x_sintheta = math.sin(x_theta)
         temp = (force_x + self.polemass_length * x_theta_dot * x_theta_dot * x_sintheta) / self.total_mass
@@ -73,6 +86,20 @@ class ThreeDCartPoleEnv(gym.Env):
         x_dot = x_dot + self.tau * xacc
         x_theta = x_theta + self.tau * x_theta_dot
         x_theta_dot = x_theta_dot + self.tau * thetaacc
+
+        # update y direction
+        y_costheta = math.cos(x_theta)
+        y_sintheta = math.sin(x_theta)
+        temp = (force_y + self.polemass_length * y_theta_dot * y_theta_dot * y_sintheta) / self.total_mass
+        thetaacc = (self.gravity * y_sintheta - y_costheta* temp) / (self.length * (4.0/3.0 - self.masspole * y_costheta * y_costheta / self.total_mass))
+        yacc  = temp - self.polemass_length * thetaacc * y_costheta / self.total_mass
+        y  = y + self.tau * y_dot
+        y_dot = y_dot + self.tau * yacc
+        y_theta = y_theta + self.tau * y_theta_dot
+        y_theta_dot = y_theta_dot + self.tau * thetaacc
+
+
+
         self.state = (x,x_dot,x_theta,x_theta_dot, y, y_dot, y_theta, y_theta_dot)
         done =  x < -self.x_threshold \
                 or x > self.x_threshold \
@@ -154,3 +181,80 @@ class ThreeDCartPoleEnv(gym.Env):
         self.poletrans.set_rotation(-x[2])
 
         return self.viewer.render(return_rgb_array = mode=='rgb_array')
+
+    def render_orthographic(self, mode='human', close=False):
+        if close:
+            if self.viewer is not None:
+                self.viewer.close()
+                self.viewer = None
+            return
+
+        screen_width = 600
+        screen_height = 600
+
+        world_width = self.x_threshold*2
+        scale = screen_width/world_width
+        # carty = 50 # TOP OF CART
+        polewidth = 5
+        polelen = scale * 0.5
+        cartwidth = 15
+        cartheight = 15
+
+        if self.viewer is None:
+            from gym.envs.classic_control import rendering
+            self.viewer = rendering.Viewer(screen_width, screen_height)
+            l,r,t,b = -cartwidth/2, cartwidth/2, cartheight/2, -cartheight/2
+            axleoffset =cartheight/4.0
+            cart = rendering.FilledPolygon([(l,b), (l,t), (r,t), (r,b)])
+            self.carttrans = rendering.Transform()
+            cart.add_attr(self.carttrans)
+            self.viewer.add_geom(cart)
+            l,r,t,b = -polewidth/2,polewidth/2,polelen-polewidth/2,-polewidth/2
+            pole = rendering.FilledPolygon([(l,b), (l,t), (r,t), (r,b)])
+            pole.set_color(.8,.6,.4)
+            self.poletrans = rendering.Transform(translation=(0, axleoffset))
+            pole.add_attr(self.poletrans)
+            pole.add_attr(self.carttrans)
+            self.viewer.add_geom(pole)
+            self.axle = rendering.make_circle(polewidth/2)
+            self.axle.add_attr(self.poletrans)
+            self.axle.add_attr(self.carttrans)
+            self.axle.set_color(.5,.5,.8)
+            self.viewer.add_geom(self.axle)
+
+            origin_res = 50
+            origin_radius = 2
+
+            track_res = 100
+            track_radius = self.x_threshold
+
+            origin_circle = rendering.make_circle(radius=origin_radius, res=origin_res, filled=True)
+            origin_circle.set_color(0, 0, 0)
+            origin_circle.add_attr(rendering.Transform(
+                translation=(screen_width/2.0, screen_height/2.0)))
+            self.viewer.add_geom(origin_circle)
+
+            origin_circle = rendering.make_circle(radius=track_radius * scale, res=track_res, filled=False)
+            origin_circle.set_color(0, 0, 0)
+            origin_circle.add_attr(rendering.Transform(
+                translation=(screen_width/2.0, screen_height/2.0)))
+            self.viewer.add_geom(origin_circle)
+
+
+
+            # self.track = rendering.Line((0,carty), (screen_width,carty))
+            # self.track.set_color(0,0,0)
+            # self.viewer.add_geom(self.track)
+
+        if self.state is None: return None
+
+        x = self.state
+        cartx = x[0]*scale+screen_width/2.0 # MIDDLE OF CART
+        carty = x[4]*scale+screen_height/2.0
+
+        self.carttrans.set_translation(cartx, carty)
+        self.poletrans.set_rotation(-x[2])
+
+        return self.viewer.render(return_rgb_array = mode=='rgb_array')
+
+

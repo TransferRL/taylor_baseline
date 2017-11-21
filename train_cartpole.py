@@ -1,6 +1,7 @@
 import gym
 
 from baselines import deepq
+from lib.env.threedcartpole import ThreeDCartPoleEnv
 
 
 def callback(lcl, glb):
@@ -10,7 +11,8 @@ def callback(lcl, glb):
 
 
 def main():
-    env = gym.make("CartPole-v0")
+    # env = gym.make("CartPole-v0")
+    env = ThreeDCartPoleEnv()
     model = deepq.models.mlp([64])
     act = deepq.learn(
         env,
