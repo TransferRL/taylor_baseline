@@ -13,7 +13,7 @@ def main():
         env,
         q_func=model,
         lr=1e-3,
-        max_timesteps=100000,
+        max_timesteps=200000,
         buffer_size=50000,
         exploration_fraction=0.1,
         exploration_final_eps=0.1,
