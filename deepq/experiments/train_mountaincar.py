@@ -18,8 +18,8 @@ def main():
         print_freq=10,
         param_noise=True
     )
-    print("Saving model to mountaincar_model.pkl")
-    act.save("mountaincar_model.pkl")
+    print("Saving model to mountaincar_model_working.pkl")
+    act.save("mountaincar_model_working.pkl")
 
 
 if __name__ == '__main__':
