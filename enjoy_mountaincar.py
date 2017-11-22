@@ -1,18 +1,23 @@
 import gym
+
 from baselines import deepq
+
+from lib.env.threedmountain_car import ThreeDMountainCarEnv
 
 
 def main():
-    env = gym.make("PongNoFrameskip-v4")
-    env = deepq.wrap_atari_dqn(env)
-    act = deepq.load("pong_model.pkl")
+    # env = gym.make("MountainCar-v0")
+    env = ThreeDMountainCarEnv()
+    act = deepq.load("mountaincar_model.pkl")
 
     while True:
         obs, done = env.reset(), False
         episode_rew = 0
         while not done:
-            env.render()
+            # env.render()
+            env.render_orthographic()
             obs, rew, done, _ = env.step(act(obs[None])[0])
+            print(obs)
             episode_rew += rew
         print("Episode reward", episode_rew)
 

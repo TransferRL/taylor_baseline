@@ -1,8 +1,7 @@
 import gym
 
-from baselines import deepq
+import deepq
 from lib.env.threedmountain_car import ThreeDMountainCarEnv
-from lib.env.acrobot import AcrobotEnv
 
 
 def main():
