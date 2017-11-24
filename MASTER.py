@@ -5,7 +5,7 @@ import numpy as np
 import tensorflow as tf
 from lib.env.threedmountain_car import ThreeDMountainCarEnv
 import lib.RandomAction
-import lib.env.mountain_car
+from lib.env.mountain_car import MountainCarEnv
 import matplotlib.pyplot as plt
 import os
 import lib.qlearning as ql
@@ -68,7 +68,7 @@ init = tf.global_variables_initializer()
 
 
 # get envs
-mc2d_env = lib.env.mountain_car.MountainCarEnv()
+mc2d_env = MountainCarEnv()
 mc3d_env = ThreeDMountainCarEnv()
 
 # train source task

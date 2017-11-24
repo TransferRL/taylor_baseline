@@ -7,7 +7,7 @@ from lib.env.threedmountain_car import ThreeDMountainCarEnv
 def main():
     # env = gym.make("MountainCar-v0")
     env = ThreeDMountainCarEnv()
-    act = deepq.load("mountaincar_model.pkl")
+    act = deepq.load("mountaincar_model_working.pkl")
 
     while True:
         obs, done = env.reset(), False
