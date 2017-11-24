@@ -52,30 +52,21 @@ def one_step_transition_model(learning_rate=0.1, n_hidden_1 = 32, n_hidden_2 = 3
 
     return loss_op, train_op, X, Y
 
-def get_train_test_data(source_qlearn=True):
-    mc2d_env = MountainCarEnv()
-    mc3d_env = ThreeDMountainCarEnv()
+
+
+def get_train_test_data(source_qlearn=True, source_env=MountainCarEnv(), target_env=ThreeDMountainCarEnv()):
 
     # source task
     if source_qlearn: # collect data from qlearning = true, collect data from random actions = false
-        if os.path.isfile('./dsource_qlearn.npz'):
-            f_read = np.load('./dsource_qlearn.npz')
-            # print(f_read['dsource'].shape)
+        source_filename = './' + source_env.name + '_dsource_qlearn.npz'
+        if os.path.isfile(source_filename):
+            f_read = np.load(source_filename)
             dsource = f_read['dsource']
 
         else:
-            # qlearning_2d = ql.QLearning(mc2d_env)
-            # qlearning_2d.learn()
-            # dsource = np.array(qlearning_2d.play())
-            # # print(dsource.shape)
-            # np.savez('dsource_qlearn.npz', dsource=dsource)
-            #
-            # with open('./data/q_learning.pkl', 'wb') as file:
-            #     pickle.dump(qlearning_2d, file)
-
             model = deepq.models.mlp([64], layer_norm=True)
             act = deepq.learn(
-                mc2d_env,
+                source_env,
                 q_func=model,
                 lr=1e-3,
                 max_timesteps=40000,
@@ -83,41 +74,41 @@ def get_train_test_data(source_qlearn=True):
                 exploration_fraction=0.1,
                 exploration_final_eps=0.1,
                 print_freq=1,
-                param_noise=True
+                param_noise=False
             )
 
             replay_memory = []  # reset
             for ep in range(100): # 100 episodes
-                obs, done = mc2d_env.reset(), False
+                obs, done = source_env.reset(), False
                 while not done:
-                    n_obs, rew, done, _ = mc2d_env.step(act(obs[None])[0])
+                    n_obs, rew, done, _ = source_env.step(act(obs[None])[0])
                     replay_memory.append([obs, act(obs[None])[0], n_obs, rew, done])
                     obs = n_obs
 
             dsource = np.array(replay_memory)
-            np.savez('dsource_qlearn.npz', dsource=dsource)
+            np.savez(source_filename, dsource=dsource)
             # with open('./data/q_learning.pkl', 'wb') as file:
             #     pickle.dump(qlearning_2d, file)
     else:
-        if os.path.isfile('./dsource_random.npz'):
-            f_read = np.load('./dsource_random.npz')
-            # print(f_read['dsource'].shape)
+        source_filename = './' + source_env.name + '_dsource_random.npz'
+        if os.path.isfile(source_filename):
+            f_read = np.load(source_filename)
             dsource = f_read['dsource']
         else:
-            qlearning_2d = lib.RandomAction.RandomAction(mc2d_env)
+            qlearning_2d = lib.RandomAction.RandomAction(source_env)
             dsource = np.array(qlearning_2d.play())
-            # print(dsource.shape)
-            np.savez('dsource_random.npz', dsource=dsource)
+            np.savez(source_filename, dsource=dsource)
 
     # target task
-    if os.path.isfile('./dtarget_random.npz'):
-        f_read = np.load('./dtarget_random.npz')
+    target_filename = './' + target_env.name + '_dtarget_random.npz'
+    if os.path.isfile(target_filename):
+        f_read = np.load(target_filename)
         # print(f_read['dtarget'].shape)
         dtarget = f_read['dtarget']
     else:
-        random_action_3d = lib.RandomAction.RandomAction(mc3d_env)
+        random_action_3d = lib.RandomAction.RandomAction(target_env)
         dtarget = np.array(random_action_3d.play())
-        np.savez('./dtarget_random.npz', dtarget=dtarget)
+        np.savez(target_filename, dtarget=dtarget)
 
     # Define the input function for training
     dsa = np.array([np.append(x[0], x[1]) for x in dtarget]) # dsa = d states actions
@@ -130,7 +121,8 @@ def get_train_test_data(source_qlearn=True):
 
     return dsa_train, dns_train, dsa_test, dns_test, dsource, dtarget
 
-def train_model(num_steps = 10000, batch_size = 100, display_step = 100):
+
+def train_model(num_steps=10000, batch_size=100, display_step=100, source_env=MountainCarEnv(), target_env=ThreeDMountainCarEnv()):
     loss_op, train_op, X, Y = one_step_transition_model()
     dsa_train, dns_train, dsa_test, dns_test, dsource, dtarget = get_train_test_data()
     batch_num = np.size(dsa_train, 0)

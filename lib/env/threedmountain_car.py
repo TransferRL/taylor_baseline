@@ -25,7 +25,7 @@ class ThreeDMountainCarEnv(gym.Env):
     }
 
     def __init__(self):
-        self.name = 'ThreeDMountainCar-v0'
+        self.name = '3d_mountain_car'
 
         self.min_position_x = -1.2
         self.max_position_x = math.pi/6 - 0.01
