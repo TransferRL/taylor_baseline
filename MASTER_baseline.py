@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 import os
 import lib.qlearning as ql
 import pickle
-
+import deepq
 
 # Create model
 def neural_net(x, weights, biases):
@@ -52,7 +52,7 @@ def one_step_transition_model(learning_rate=0.1, n_hidden_1 = 32, n_hidden_2 = 3
 
     return loss_op, train_op, X, Y
 
-def get_train_test_data(source_qlearn=False):
+def get_train_test_data(source_qlearn=True):
     mc2d_env = MountainCarEnv()
     mc3d_env = ThreeDMountainCarEnv()
 
@@ -64,14 +64,40 @@ def get_train_test_data(source_qlearn=False):
             dsource = f_read['dsource']
 
         else:
-            qlearning_2d = ql.QLearning(mc2d_env)
-            qlearning_2d.learn()
-            dsource = np.array(qlearning_2d.play())
-            # print(dsource.shape)
-            np.savez('dsource_qlearn.npz', dsource=dsource)
+            # qlearning_2d = ql.QLearning(mc2d_env)
+            # qlearning_2d.learn()
+            # dsource = np.array(qlearning_2d.play())
+            # # print(dsource.shape)
+            # np.savez('dsource_qlearn.npz', dsource=dsource)
+            #
+            # with open('./data/q_learning.pkl', 'wb') as file:
+            #     pickle.dump(qlearning_2d, file)
 
-            with open('./data/q_learning.pkl', 'wb') as file:
-                pickle.dump(qlearning_2d, file)
+            model = deepq.models.mlp([64], layer_norm=True)
+            act = deepq.learn(
+                mc2d_env,
+                q_func=model,
+                lr=1e-3,
+                max_timesteps=40000,
+                buffer_size=50000,
+                exploration_fraction=0.1,
+                exploration_final_eps=0.1,
+                print_freq=1,
+                param_noise=True
+            )
+
+            replay_memory = []  # reset
+            for ep in range(100): # 100 episodes
+                obs, done = mc2d_env.reset(), False
+                while not done:
+                    n_obs, rew, done, _ = mc2d_env.step(act(obs[None])[0])
+                    replay_memory.append([obs, act(obs[None])[0], n_obs, rew, done])
+                    obs = n_obs
+
+            dsource = np.array(replay_memory)
+            np.savez('dsource_qlearn.npz', dsource=dsource)
+            # with open('./data/q_learning.pkl', 'wb') as file:
+            #     pickle.dump(qlearning_2d, file)
     else:
         if os.path.isfile('./dsource_random.npz'):
             f_read = np.load('./dsource_random.npz')

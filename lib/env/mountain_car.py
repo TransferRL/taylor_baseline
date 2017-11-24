@@ -16,8 +16,6 @@ class MountainCarEnv(gym.Env):
     }
 
     def __init__(self):
-        self.name = 'MountainCar-v0'
-
         self.min_position = -1.2
         self.max_position = 0.6
         self.max_speed = 0.07
@@ -37,9 +35,6 @@ class MountainCarEnv(gym.Env):
     def _seed(self, seed=None):
         self.np_random, seed = seeding.np_random(seed)
         return [seed]
-
-    def set_state(self, state):
-        self.state = state;
 
     def _step(self, action):
         assert self.action_space.contains(action), "%r (%s) invalid" % (action, type(action))
