@@ -2,13 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="034c2508-850e-4c88-b645-4f3625c84b8c" name="Default" comment="env test">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/MASTER_baseline.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/mse_action_mappings.pkl" afterPath="$PROJECT_DIR$/data/mse_action_mappings.pkl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/mse_state_mappings.pkl" afterPath="$PROJECT_DIR$/data/mse_state_mappings.pkl" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MASTER.py" afterPath="$PROJECT_DIR$/MASTER.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/enjoy_mountaincar.py" afterPath="$PROJECT_DIR$/enjoy_mountaincar.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/train_mountaincar.py" afterPath="$PROJECT_DIR$/train_mountaincar.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MASTER_baseline.py" afterPath="$PROJECT_DIR$/MASTER_baseline.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -26,7 +24,7 @@
         <entry file="file://$PROJECT_DIR$/train_mountaincar.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="72">
-              <caret line="4" column="0" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+              <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -38,7 +36,7 @@
         <entry file="file://$PROJECT_DIR$/deepq/simple.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="3678">
-              <caret line="267" column="53" lean-forward="true" selection-start-line="267" selection-start-column="53" selection-end-line="267" selection-end-column="53" />
+              <caret line="267" column="53" lean-forward="false" selection-start-line="267" selection-start-column="53" selection-end-line="267" selection-end-column="53" />
               <folding />
             </state>
           </provider>
@@ -58,7 +56,7 @@
         <entry file="file://$PROJECT_DIR$/enjoy_cartpole.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="54">
-              <caret line="6" column="11" lean-forward="true" selection-start-line="6" selection-start-column="11" selection-end-line="6" selection-end-column="11" />
+              <caret line="6" column="11" lean-forward="false" selection-start-line="6" selection-start-column="11" selection-end-line="6" selection-end-column="11" />
               <folding />
             </state>
           </provider>
@@ -67,8 +65,8 @@
       <file leaf-file-name="MASTER.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MASTER.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="232">
-              <caret line="68" column="0" lean-forward="true" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
+            <state relative-caret-position="159">
+              <caret line="69" column="10" lean-forward="true" selection-start-line="69" selection-start-column="10" selection-end-line="69" selection-end-column="10" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -79,8 +77,8 @@
       <file leaf-file-name="MASTER_baseline.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MASTER_baseline.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="481">
-              <caret line="57" column="4" lean-forward="false" selection-start-line="57" selection-start-column="4" selection-end-line="57" selection-end-column="4" />
+            <state relative-caret-position="499">
+              <caret line="167" column="68" lean-forward="true" selection-start-line="167" selection-start-column="68" selection-end-line="167" selection-end-column="68" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -105,7 +103,6 @@
       <find>wrappers</find>
       <find>action_space</find>
       <find>stats</find>
-      <find>dsource</find>
       <find>done</find>
       <find>print</find>
       <find>mse_state_mappings.pkl</find>
@@ -117,6 +114,7 @@
       <find>print_freq</find>
       <find>param_noise</find>
       <find>cloudpickle</find>
+      <find>dsource</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -147,8 +145,8 @@
         <option value="$PROJECT_DIR$/deepq/simple.py" />
         <option value="$PROJECT_DIR$/lib/env/threedmountain_car.py" />
         <option value="$PROJECT_DIR$/train_mountaincar.py" />
-        <option value="$PROJECT_DIR$/MASTER.py" />
         <option value="$PROJECT_DIR$/enjoy_mountaincar.py" />
+        <option value="$PROJECT_DIR$/MASTER.py" />
         <option value="$PROJECT_DIR$/MASTER_baseline.py" />
       </list>
     </option>
@@ -206,7 +204,13 @@
             <path>
               <item name="taylor_baseline" type="b2602c69:ProjectViewProjectNode" />
               <item name="taylor_baseline" type="462c0819:PsiDirectoryNode" />
-              <item name="deepq" type="462c0819:PsiDirectoryNode" />
+              <item name="data" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="taylor_baseline" type="b2602c69:ProjectViewProjectNode" />
+              <item name="taylor_baseline" type="462c0819:PsiDirectoryNode" />
+              <item name="data" type="462c0819:PsiDirectoryNode" />
+              <item name="tmp" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -241,7 +245,41 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.enjoy_cartpole">
+  <component name="RunManager" selected="Python.MASTER_baseline">
+    <configuration name="MASTER" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="taylor_master" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/MASTER.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+    </configuration>
+    <configuration name="MASTER_baseline" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="taylor_master" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/MASTER_baseline.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+    </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -410,40 +448,6 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
     </configuration>
-    <configuration name="train_cartpole" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="taylor_master" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/train_cartpole.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-    </configuration>
-    <configuration name="train_mountaincar (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/deepq/experiments" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="taylor_master" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/deepq/experiments/train_mountaincar.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-    </configuration>
     <configuration name="train_mountaincar" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -463,18 +467,18 @@
     </configuration>
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.train_mountaincar" />
-      <item index="1" class="java.lang.String" itemvalue="Python.train_cartpole" />
-      <item index="2" class="java.lang.String" itemvalue="Python.enjoy_cartpole" />
-      <item index="3" class="java.lang.String" itemvalue="Python.enjoy_mountaincar" />
-      <item index="4" class="java.lang.String" itemvalue="Python.train_mountaincar (1)" />
+      <item index="1" class="java.lang.String" itemvalue="Python.enjoy_cartpole" />
+      <item index="2" class="java.lang.String" itemvalue="Python.enjoy_mountaincar" />
+      <item index="3" class="java.lang.String" itemvalue="Python.MASTER_baseline" />
+      <item index="4" class="java.lang.String" itemvalue="Python.MASTER" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.enjoy_cartpole" />
-        <item index="1" class="java.lang.String" itemvalue="Python.enjoy_mountaincar" />
-        <item index="2" class="java.lang.String" itemvalue="Python.train_mountaincar" />
-        <item index="3" class="java.lang.String" itemvalue="Python.train_mountaincar (1)" />
-        <item index="4" class="java.lang.String" itemvalue="Python.train_cartpole" />
+        <item index="0" class="java.lang.String" itemvalue="Python.MASTER_baseline" />
+        <item index="1" class="java.lang.String" itemvalue="Python.MASTER" />
+        <item index="2" class="java.lang.String" itemvalue="Python.enjoy_cartpole" />
+        <item index="3" class="java.lang.String" itemvalue="Python.enjoy_mountaincar" />
+        <item index="4" class="java.lang.String" itemvalue="Python.train_mountaincar" />
       </list>
     </recent_temporary>
   </component>
@@ -512,11 +516,11 @@
     <frame x="65" y="-4" width="1495" height="932" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22429262" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22429262" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32978722" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292978" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33374843" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35740972" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32978722" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32845744" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -531,6 +535,26 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
     </layout>
+    <layout-to-restore>
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32978722" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35740972" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32978722" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32845744" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32978722" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22429262" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4162234" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32845646" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+    </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -548,7 +572,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="50" />
+      <option name="time" value="51" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -557,9 +581,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python35/Lib/codecs.py" />
-    <entry file="file://$USER_HOME$/reinforcement-learning/gym/gym/core.py" />
-    <entry file="file://$PROJECT_DIR$/3D mountaincar Q learning.ipynb" />
     <entry file="file://$USER_HOME$/reinforcement-learning/labs/lab3/lab3/simpledqn/main.py" />
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
@@ -796,7 +817,7 @@
     <entry file="file://$PROJECT_DIR$/train_mountaincar.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="72">
-          <caret line="4" column="0" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
@@ -806,7 +827,7 @@
     <entry file="file://$PROJECT_DIR$/deepq/simple.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3678">
-          <caret line="267" column="53" lean-forward="true" selection-start-line="267" selection-start-column="53" selection-end-line="267" selection-end-column="53" />
+          <caret line="267" column="53" lean-forward="false" selection-start-line="267" selection-start-column="53" selection-end-line="267" selection-end-column="53" />
           <folding />
         </state>
       </provider>
@@ -814,15 +835,39 @@
     <entry file="file://$PROJECT_DIR$/enjoy_cartpole.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="54">
-          <caret line="6" column="11" lean-forward="true" selection-start-line="6" selection-start-column="11" selection-end-line="6" selection-end-column="11" />
+          <caret line="6" column="11" lean-forward="false" selection-start-line="6" selection-start-column="11" selection-end-line="6" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/tmp/model.ckpt.data-00000-of-00001">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/tmp/model.ckpt.meta">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/tmp/checkpoint">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/MASTER.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="68" column="0" lean-forward="true" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
+        <state relative-caret-position="159">
+          <caret line="69" column="10" lean-forward="true" selection-start-line="69" selection-start-column="10" selection-end-line="69" selection-end-column="10" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
@@ -831,8 +876,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MASTER_baseline.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="481">
-          <caret line="57" column="4" lean-forward="false" selection-start-line="57" selection-start-column="4" selection-end-line="57" selection-end-column="4" />
+        <state relative-caret-position="499">
+          <caret line="167" column="68" lean-forward="true" selection-start-line="167" selection-start-column="68" selection-end-line="167" selection-end-column="68" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
