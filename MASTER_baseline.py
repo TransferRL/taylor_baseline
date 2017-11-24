@@ -53,7 +53,6 @@ def one_step_transition_model(learning_rate=0.1, n_hidden_1 = 32, n_hidden_2 = 3
     return loss_op, train_op, X, Y
 
 
-
 def get_train_test_data(source_qlearn=True, source_env=MountainCarEnv(), target_env=ThreeDMountainCarEnv()):
 
     # source task
@@ -122,9 +121,11 @@ def get_train_test_data(source_qlearn=True, source_env=MountainCarEnv(), target_
     return dsa_train, dns_train, dsa_test, dns_test, dsource, dtarget
 
 
-def train_model(num_steps=10000, batch_size=100, display_step=100, source_env=MountainCarEnv(), target_env=ThreeDMountainCarEnv()):
+def train_model(num_steps=10000, batch_size=100, display_step=100, source_env=MountainCarEnv(),
+                target_env=ThreeDMountainCarEnv()):
     loss_op, train_op, X, Y = one_step_transition_model()
-    dsa_train, dns_train, dsa_test, dns_test, dsource, dtarget = get_train_test_data()
+    dsa_train, dns_train, dsa_test, dns_test, dsource, dtarget = get_train_test_data(
+        source_qlearn=False, source_env=source_env, target_env=target_env)
     batch_num = np.size(dsa_train, 0)
 
     init = tf.global_variables_initializer()
@@ -157,27 +158,27 @@ def train_model(num_steps=10000, batch_size=100, display_step=100, source_env=Mo
         print("Model saved in file: %s" % save_path)
 
         # Find the mapping between source and target
-        mc2d_env = MountainCarEnv()
-        mc3d_env = ThreeDMountainCarEnv()
-        mc2d_states = mc2d_env.observation_space.shape[0]  # 2
-        mc3d_states = mc3d_env.observation_space.shape[0]  # 4
-        mc2d_actions = mc2d_env.action_space.n  # 3
-        mc3d_actions = mc3d_env.action_space.n  # 5
+        # mc2d_env = MountainCarEnv()
+        # mc3d_env = ThreeDMountainCarEnv()
+        source_states = source_env.observation_space.shape[0]  # 2
+        target_states = target_env.observation_space.shape[0]  # 4
+        source_actions = source_env.action_space.n  # 3
+        target_actions = target_env.action_space.n  # 5
 
-        mse_state_mappings = np.zeros((2,) * mc3d_states)  # 2 by 2 by 2 by 2
-        mse_action_mappings = np.ndarray(shape=(mc3d_actions, mc2d_actions, mc3d_states * mc3d_states))  # 5 by 3 by 16
+        mse_state_mappings = np.zeros((2,) * target_states)  # 2 by 2 by 2 by 2
+        mse_action_mappings = np.ndarray(shape=(target_actions, source_actions, target_states * target_states))  # 5 by 3 by 16
         mse_action_mappings.fill(-1)
 
         state_count = 0
-        for s0 in range(mc2d_states):  # s0 is the first state of target states, x
-            for s1 in range(mc2d_states):  # s1 is second state of target states, y
-                for s2 in range(mc2d_states):  # s2 is third state of target states, x_dot
-                    for s3 in range(mc2d_states):  # s3 is fourth state of target states, y_dot
+        for s0 in range(source_states):  # s0 is the first state of target states, x
+            for s1 in range(source_states):  # s1 is second state of target states, y
+                for s2 in range(source_states):  # s2 is third state of target states, x_dot
+                    for s3 in range(source_states):  # s3 is fourth state of target states, y_dot
 
                         state_losses = []
 
-                        for a_mc3d in range(mc3d_actions):
-                            for a_mc2d in range(mc2d_actions):
+                        for a_mc3d in range(target_actions):
+                            for a_mc2d in range(source_actions):
                                 states = np.array([x[0] for x in dsource if x[1] == a_mc2d])
                                 actions = np.array([x[1] for x in dsource if x[1] == a_mc2d])
                                 n_states = np.array([x[2] for x in dsource if x[1] == a_mc2d])
@@ -206,13 +207,13 @@ def train_model(num_steps=10000, batch_size=100, display_step=100, source_env=Mo
                         mse_state_mappings[s0, s1, s2, s3] = np.mean(state_losses)
                         state_count += 1
 
-        # mse_action_mappings_result = [[np.mean(mse_action_mappings[a_mc3d, a_mc2d, :]) for a_mc2d in range(mc2d_actions)] for a_mc3d in range(mc3d_actions)]
+        # mse_action_mappings_result = [[np.mean(mse_action_mappings[a_mc3d, a_mc2d, :]) for a_mc2d in range(source_actions)] for a_mc3d in range(target_actions)]
 
-        mse_action_mappings_result = np.zeros((mc3d_actions, mc2d_actions))
-        for a_mc3d in range(mc3d_actions):
-            for a_mc2d in range(mc2d_actions):
+        mse_action_mappings_result = np.zeros((target_actions, source_actions))
+        for a_mc3d in range(target_actions):
+            for a_mc2d in range(source_actions):
                 losses_act = []
-                for s in range(mc3d_states * mc3d_states):
+                for s in range(target_states * target_states):
                     if mse_action_mappings[a_mc3d, a_mc2d, s] != -1:
                         # print(mse_action_mappings[a_mc3d, a_mc2d, s])
                         losses_act.append(mse_action_mappings[a_mc3d, a_mc2d, s])
@@ -248,5 +249,6 @@ def train_model(num_steps=10000, batch_size=100, display_step=100, source_env=Mo
 
 
 if __name__ == '__main__':
-    train_model(num_steps=10000, batch_size=100, display_step=100)
+    train_model(num_steps=10000, batch_size=100, display_step=100, source_env=MountainCarEnv(),
+                target_env=ThreeDMountainCarEnv())
 
