@@ -158,8 +158,6 @@ def train_model(num_steps=10000, batch_size=100, display_step=100, source_env=Mo
         print("Model saved in file: %s" % save_path)
 
         # Find the mapping between source and target
-        # mc2d_env = MountainCarEnv()
-        # mc3d_env = ThreeDMountainCarEnv()
         source_states = source_env.observation_space.shape[0]  # 2
         target_states = target_env.observation_space.shape[0]  # 4
         source_actions = source_env.action_space.n  # 3
@@ -170,54 +168,89 @@ def train_model(num_steps=10000, batch_size=100, display_step=100, source_env=Mo
         mse_action_mappings.fill(-1)
 
         state_count = 0
-        for s0 in range(source_states):  # s0 is the first state of target states, x
-            for s1 in range(source_states):  # s1 is second state of target states, y
-                for s2 in range(source_states):  # s2 is third state of target states, x_dot
-                    for s3 in range(source_states):  # s3 is fourth state of target states, y_dot
 
-                        state_losses = []
 
-                        for a_mc3d in range(target_actions):
-                            for a_mc2d in range(source_actions):
-                                states = np.array([x[0] for x in dsource if x[1] == a_mc2d])
-                                actions = np.array([x[1] for x in dsource if x[1] == a_mc2d])
-                                n_states = np.array([x[2] for x in dsource if x[1] == a_mc2d])
+        for target_states_list in itertools.product(range(source_states), repeat=target_states):
+            state_losses = []
+            for t_action in range(target_actions):
+                for s_action in range(source_actions):
+                    states = np.array([x[0] for x in dsource if x[1] == s_action])
+                    actions = np.array([x[1] for x in dsource if x[1] == s_action])
+                    n_states = np.array([x[2] for x in dsource if x[1] == s_action])
 
-                                if (states.size == 0) or (actions.size == 0) or (n_states.size == 0):
-                                    print('this happened..')  # TODO
-                                    # mse_action_mappings[a_mc3d, a_mc2d, state_count] = 0
-                                    continue
+                    if (states.size == 0) or (actions.size == 0) or (n_states.size == 0):
+                        print(
+                            'this happened.. dsource does not have certain states or does not perform certain actions at all. make sure to generate better samples. possibly with high epsilon value')
+                        # mse_action_mappings[t_action, s_action, state_count] = 0
+                        continue
 
-                                # transform to dsource_trans
-                                actions_trans = np.ndarray(shape=(actions.size,))
-                                actions_trans.fill(a_mc3d)
-                                input_trans = np.array(
-                                    [states[:, s0], states[:, s1], states[:, s2], states[:, s3], actions_trans]).T
-                                # input_trans = [states_trans, actions]
-                                n_states_trans = np.array(
-                                    [n_states[:, s0], n_states[:, s1], n_states[:, s2], n_states[:, s3]]).T
+                    # transform to dsource_trans
+                    actions_trans = np.ndarray(shape=(actions.size,))
+                    actions_trans.fill(t_action)
+                    input_trans = np.concatenate((states[:, target_states_list], actions_trans[:,None]), axis=1)
+                    n_states_trans = np.squeeze(np.array(
+                        [n_states[:, target_states_list]]))
 
-                                # calculate mapping error
-                                loss_mapping = sess.run(loss_op, feed_dict={X: input_trans, Y: n_states_trans})
-                                # print('loss_mapping is {}'.format(loss_mapping))
+                    # calculate mapping error
+                    loss_mapping = sess.run(loss_op, feed_dict={X: input_trans, Y: n_states_trans})
+                    # print('loss_mapping is {}'.format(loss_mapping))
 
-                                state_losses.append(loss_mapping)
-                                mse_action_mappings[a_mc3d, a_mc2d, state_count] = loss_mapping
+                    state_losses.append(loss_mapping)
+                    mse_action_mappings[t_action, s_action, state_count] = loss_mapping
 
-                        mse_state_mappings[s0, s1, s2, s3] = np.mean(state_losses)
-                        state_count += 1
+            mse_state_mappings[target_states_list] = np.mean(state_losses)
+            state_count += 1
 
-        # mse_action_mappings_result = [[np.mean(mse_action_mappings[a_mc3d, a_mc2d, :]) for a_mc2d in range(source_actions)] for a_mc3d in range(target_actions)]
+
+
+        # for s0 in range(source_states):  # s0 is the first state of target states, x
+        #     for s1 in range(source_states):  # s1 is second state of target states, y
+        #         for s2 in range(source_states):  # s2 is third state of target states, x_dot
+        #             for s3 in range(source_states):  # s3 is fourth state of target states, y_dot
+        #
+        #                 state_losses = []
+        #
+        #                 for t_action in range(target_actions):
+        #                     for s_action in range(source_actions):
+        #                         states = np.array([x[0] for x in dsource if x[1] == s_action])
+        #                         actions = np.array([x[1] for x in dsource if x[1] == s_action])
+        #                         n_states = np.array([x[2] for x in dsource if x[1] == s_action])
+        #
+        #                         if (states.size == 0) or (actions.size == 0) or (n_states.size == 0):
+        #                             print('this happened.. dsource does not have certain states or does not perform certain actions at all. make sure to generate better samples. possibly with high epsilon value')
+        #                             # mse_action_mappings[t_action, s_action, state_count] = 0
+        #                             continue
+        #
+        #                         # transform to dsource_trans
+        #                         actions_trans = np.ndarray(shape=(actions.size,))
+        #                         actions_trans.fill(t_action)
+        #                         input_trans = np.array(
+        #                             [states[:, s0], states[:, s1], states[:, s2], states[:, s3], actions_trans]).T
+        #                         # input_trans = [states_trans, actions]
+        #                         n_states_trans = np.array(
+        #                             [n_states[:, s0], n_states[:, s1], n_states[:, s2], n_states[:, s3]]).T
+        #
+        #                         # calculate mapping error
+        #                         loss_mapping = sess.run(loss_op, feed_dict={X: input_trans, Y: n_states_trans})
+        #                         # print('loss_mapping is {}'.format(loss_mapping))
+        #
+        #                         state_losses.append(loss_mapping)
+        #                         mse_action_mappings[t_action, s_action, state_count] = loss_mapping
+        #
+        #                 mse_state_mappings[s0, s1, s2, s3] = np.mean(state_losses)
+        #                 state_count += 1
+
+        ## mse_action_mappings_result = [[np.mean(mse_action_mappings[t_action, s_action, :]) for s_action in range(source_actions)] for t_action in range(target_actions)]
 
         mse_action_mappings_result = np.zeros((target_actions, source_actions))
-        for a_mc3d in range(target_actions):
-            for a_mc2d in range(source_actions):
+        for t_action in range(target_actions):
+            for s_action in range(source_actions):
                 losses_act = []
                 for s in range(target_states * target_states):
-                    if mse_action_mappings[a_mc3d, a_mc2d, s] != -1:
-                        # print(mse_action_mappings[a_mc3d, a_mc2d, s])
-                        losses_act.append(mse_action_mappings[a_mc3d, a_mc2d, s])
-                mse_action_mappings_result[a_mc3d, a_mc2d] = np.mean(losses_act)
+                    if mse_action_mappings[t_action, s_action, s] != -1:
+                        # print(mse_action_mappings[t_action, s_action, s])
+                        losses_act.append(mse_action_mappings[t_action, s_action, s])
+                mse_action_mappings_result[t_action, s_action] = np.mean(losses_act)
 
         print('action mapping: {}'.format(mse_action_mappings_result))
         print('state mapping {}'.format(mse_state_mappings))
