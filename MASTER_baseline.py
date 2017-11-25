@@ -167,7 +167,7 @@ def train_model(num_steps=10000, batch_size=100, display_step=100, source_env=Mo
         target_actions = target_env.action_space.n  # 5
 
         mse_state_mappings = np.zeros((source_states,) * target_states)  # 2 by 2 by 2 by 2
-        mse_action_mappings = np.ndarray(shape=(target_actions, source_actions, target_states * target_states))  # 5 by 3 by 16
+        mse_action_mappings = np.ndarray(shape=(target_actions, source_actions, pow(target_states, source_states)))  # 5 by 3 by 16
         mse_action_mappings.fill(-1)
 
         state_count = 0
@@ -198,7 +198,7 @@ def train_model(num_steps=10000, batch_size=100, display_step=100, source_env=Mo
                     # print('loss_mapping is {}'.format(loss_mapping))
 
                     state_losses.append(loss_mapping)
-                    import pdb; pdb.set_trace()
+                    # import pdb; pdb.set_trace()
                     mse_action_mappings[t_action, s_action, state_count] = loss_mapping
 
             # import pdb; pdb.set_trace()
