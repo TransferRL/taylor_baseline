@@ -252,8 +252,11 @@ def train_model(num_steps=10000, batch_size=100, display_step=100, source_env=Mo
         print("Done exporting MSE file")
 
 
+
+
+
 if __name__ == '__main__':
     # train_model(num_steps=10000, batch_size=100, display_step=100, source_env=MountainCarEnv(),
     #             target_env=ThreeDMountainCarEnv())
-    train_model(num_steps=10000, batch_size=100, display_step=100, source_env=CartPoleEnv(),
-                target_env=ThreeDCartPoleEnv())
+    train_model(num_steps=10000, batch_size=100, display_step=100, source_env=MountainCarEnv(),
+                target_env=ThreeDMountainCarEnv())
