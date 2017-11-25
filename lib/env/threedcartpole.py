@@ -20,6 +20,8 @@ class ThreeDCartPoleEnv(gym.Env):
     }
 
     def __init__(self):
+
+        self.name = '3d_cartpole'
         self.gravity = 9.8
         self.masscart = 1.0
         self.masspole = 0.1

@@ -12,6 +12,8 @@ import os
 import lib.qlearning as ql
 import pickle
 import deepq
+from lib.env.cartpole import CartPoleEnv
+from lib.env.threedcartpole import ThreeDCartPoleEnv
 
 # Create model
 def neural_net(x, weights, biases):
@@ -123,9 +125,10 @@ def get_train_test_data(source_qlearn=True, source_env=MountainCarEnv(), target_
 
 def train_model(num_steps=10000, batch_size=100, display_step=100, source_env=MountainCarEnv(),
                 target_env=ThreeDMountainCarEnv()):
-    loss_op, train_op, X, Y = one_step_transition_model()
+    loss_op, train_op, X, Y = one_step_transition_model(num_input=target_env.observation_space.shape[0]+1, num_output=target_env.observation_space.shape[0])
     dsa_train, dns_train, dsa_test, dns_test, dsource, dtarget = get_train_test_data(
         source_qlearn=False, source_env=source_env, target_env=target_env)
+
     batch_num = np.size(dsa_train, 0)
 
     init = tf.global_variables_initializer()
@@ -163,7 +166,7 @@ def train_model(num_steps=10000, batch_size=100, display_step=100, source_env=Mo
         source_actions = source_env.action_space.n  # 3
         target_actions = target_env.action_space.n  # 5
 
-        mse_state_mappings = np.zeros((2,) * target_states)  # 2 by 2 by 2 by 2
+        mse_state_mappings = np.zeros((source_states,) * target_states)  # 2 by 2 by 2 by 2
         mse_action_mappings = np.ndarray(shape=(target_actions, source_actions, target_states * target_states))  # 5 by 3 by 16
         mse_action_mappings.fill(-1)
 
@@ -195,8 +198,10 @@ def train_model(num_steps=10000, batch_size=100, display_step=100, source_env=Mo
                     # print('loss_mapping is {}'.format(loss_mapping))
 
                     state_losses.append(loss_mapping)
+                    import pdb; pdb.set_trace()
                     mse_action_mappings[t_action, s_action, state_count] = loss_mapping
 
+            # import pdb; pdb.set_trace()
             mse_state_mappings[target_states_list] = np.mean(state_losses)
             state_count += 1
 
@@ -248,6 +253,7 @@ def train_model(num_steps=10000, batch_size=100, display_step=100, source_env=Mo
 
 
 if __name__ == '__main__':
-    train_model(num_steps=10000, batch_size=100, display_step=100, source_env=MountainCarEnv(),
-                target_env=ThreeDMountainCarEnv())
-
+    # train_model(num_steps=10000, batch_size=100, display_step=100, source_env=MountainCarEnv(),
+    #             target_env=ThreeDMountainCarEnv())
+    train_model(num_steps=10000, batch_size=100, display_step=100, source_env=CartPoleEnv(),
+                target_env=ThreeDCartPoleEnv())
