@@ -14,6 +14,7 @@ import pickle
 import deepq
 from lib.env.cartpole import CartPoleEnv
 from lib.env.threedcartpole import ThreeDCartPoleEnv
+from lib.env.acrobot import AcrobotEnv
 
 # Create model
 def neural_net(x, weights, biases):
@@ -167,7 +168,7 @@ def train_model(num_steps=10000, batch_size=100, display_step=100, source_env=Mo
         target_actions = target_env.action_space.n  # 5
 
         mse_state_mappings = np.zeros((source_states,) * target_states)  # 2 by 2 by 2 by 2
-        mse_action_mappings = np.ndarray(shape=(target_actions, source_actions, pow(target_states, source_states)))  # 5 by 3 by 16
+        mse_action_mappings = np.ndarray(shape=(target_actions, source_actions, pow(source_states, target_states)))  # 5 by 3 by 16
         mse_action_mappings.fill(-1)
 
         state_count = 0
@@ -259,4 +260,4 @@ if __name__ == '__main__':
     # train_model(num_steps=10000, batch_size=100, display_step=100, source_env=MountainCarEnv(),
     #             target_env=ThreeDMountainCarEnv())
     train_model(num_steps=10000, batch_size=100, display_step=100, source_env=MountainCarEnv(),
-                target_env=ThreeDMountainCarEnv())
+                target_env=AcrobotEnv())
