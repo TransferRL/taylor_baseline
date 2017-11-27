@@ -165,6 +165,12 @@ def build_act(make_obs_ph, q_func, num_actions, scope="deepq", reuse=None):
                          updates=[update_eps_expr])
         return act
 
+def build_q_values(make_obs_ph, q_func, num_actions, scope="deepq", reuse=None):
+    with tf.variable_scope(scope, reuse=reuse):
+        obs_t_input = U.ensure_tf_input(make_obs_ph("obs"))
+        q_t = q_func(obs_t_input.get(), num_actions, scope="q_func", reuse=True)
+        q_values = U.function([obs_t_input], q_t)
+        return q_values
 
 def build_act_with_param_noise(make_obs_ph, q_func, num_actions, scope="deepq", reuse=None, param_noise_filter_func=None):
     """Creates the act function with support for parameter space noise exploration (https://arxiv.org/abs/1706.01905):
